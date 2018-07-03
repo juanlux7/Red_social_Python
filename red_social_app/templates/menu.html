@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container col-md-4 infinite-container">
+{% for post in posts %}
+
+
+	
+	<div class='infinite-item'>
+
+		<div class="card" style="width: 20rem; border-bottom: 3px solid skyblue; margin-bottom: 10px; margin-top: 5px;">
+  <div class="card-body">
+
+    {% if not usuarios_seguidos %}
+
+    <button type="" class="fa fa-user-plus">seguir</button>
+
+    {% endif %}
+
+    <h4 class="card-title" style="font-weight: bold; padding-bottom: 5px; border-bottom: 2px solid skyblue;"><img src="https://cdn-images-1.medium.com/fit/c/36/36/1*8vPTpC402oh6ex8kkLFbUA.jpeg">&nbsp; {{ post.user_post.username }}</h4>
+
+    <p class="card-text">{{post.post_content}}</p>
+    <i class="fa fa-reply" style="font-size: 13px; color: #35c8f2;" aria-hidden="true">&nbsp;Responder</i>
+    <i class="fa fa-thumbs-up" style="font-size: 13px; color: #35c8f2;" aria-hidden="true"></i>
+    <br>
+    <div style="border-top: 1px solid #d9dbda; border-bottom: 1px solid #d9dbda; margin-top: 10px; padding-top: 5px;">
+   	<p class="likes_count" style="font-size: 13px; font-weight: bold;">20 likes</p>
+   </div>
+   <div>
+   	<input type="text" name="" class="form-control" placeholder="escribe aqui tu respuesta">
+   </div>
+  </div>
+</div>
+
+	</div>
+
+
+{% endfor %}
+
+</diV>
+
+{% if posts.has_next %}
+<a class="infinite-more-link" href="?page={{ posts.next_page_number }}">Mas</a>
+{% endif %}
+
+<div class="loading" style="display: none;">
+  <i class="fa fa-spinner" aria-hidden="true"></i>
+
+</div>
+
+<script>
+  var infinite = new Waypoint.Infinite({
+    element: $('.infinite-container')[0],
+    onBeforePageLoad: function () {
+      $('.loading').show();
+    },
+    onAfterPageLoad: function ($items) {
+        $('.loading').hide();
+
+    }
+  });
+</script>
+
+
+{% endblock  %}
